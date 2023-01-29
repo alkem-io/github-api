@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { GraphQLClient } from 'graphql-request';
-import { Sdk, getSdk, Issue, Repository } from '../generated/graphql';
+import { Sdk, getSdk, Issue } from '../generated/graphql';
 import { Logger } from 'winston';
 import { GithubClientConfig } from '../config';
 
@@ -57,6 +57,14 @@ export class GithubClient {
       }
     }
     return titles;
+  }
+
+  public async projects(organization: string, projectID: number) {
+    const result = await this.sdkClient.projects({ organization, projectID });
+
+    this.logger.info?.(`Projects: [${result}] `);
+
+    return result;
   }
 
   private getLabelsForIssue(issue: Issue): string[] {
