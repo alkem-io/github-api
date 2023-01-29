@@ -13,8 +13,10 @@ export const viewer = async () => {
   const githubClient = new GithubClient(config, logger);
   await githubClient.initialise();
 
-  const result = await githubClient.repository();
-  logger.info?.(`Result: ${JSON.stringify(result)}`);
+  const titles = await githubClient.issuesInRepo('server', 5);
+  for (const title of titles) {
+    logger.info?.(`Result: ${title}`);
+  }
 };
 
 main().catch(error => {

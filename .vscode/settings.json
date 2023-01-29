@@ -9,5 +9,10 @@
   "javascript.preferences.importModuleSpecifierEnding": "minimal",
   "typescript.preferences.importModuleSpecifier": "relative",
   "typescript.preferences.importModuleSpecifierEnding": "minimal",
-  "cSpell.words": ["alkemio", "hub", "populator"]
+  "cSpell.words": [
+    "alkemio",
+    "hub",
+    "populator"
+  ],
+  "git.ignoreLimitWarning": true
 }

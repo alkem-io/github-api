@@ -36,9 +36,22 @@ export class GithubClient {
     return result;
   }
 
-  public async repository() {
-    const result = await this.sdkClient.repository();
+  public async issuesInRepo(
+    repoName: string,
+    limit: number
+  ): Promise<string[]> {
+    const result = await this.sdkClient.repository({ repoName, limit });
 
-    return result;
+    const titles: string[] = [];
+    const issues = result.data.repository?.issues?.edges || [];
+    for (const issue of issues) {
+      this.logger.info?.(`Issue: ${JSON.stringify(issue)}`);
+      const node = issue?.node;
+      if (node) {
+        const title = `${node.title}`;
+        titles.push(title);
+      }
+    }
+    return titles;
   }
 }
