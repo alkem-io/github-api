@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { GraphQLClient } from 'graphql-request';
-import { Sdk, getSdk } from '../generated/graphql';
+import { Sdk, getSdk, Issue, Repository } from '../generated/graphql';
 import { Logger } from 'winston';
 import { GithubClientConfig } from '../config';
 
@@ -36,9 +36,41 @@ export class GithubClient {
     return result;
   }
 
-  public async repository() {
-    const result = await this.sdkClient.repository();
+  public async issuesInRepo(
+    repoName: string,
+    limit: number
+  ): Promise<string[]> {
+    const result = await this.sdkClient.repository({ repoName, limit });
 
+    const titles: string[] = [];
+    const issues = result.data.repository?.issues?.edges || [];
+    for (const issue of issues) {
+      const issueNode: Issue | undefined = issue?.node as Issue;
+      if (issueNode) {
+        const labels = this.getLabelsForIssue(issueNode);
+        this.logger.info?.(`Issue: [${labels}] - ${JSON.stringify(issue)}`);
+        const node = issue?.node;
+        if (node) {
+          const title = `${node.title}`;
+          titles.push(title);
+        }
+      }
+    }
+    return titles;
+  }
+
+  private getLabelsForIssue(issue: Issue): string[] {
+    const labelEdges = issue.labels?.edges || [];
+    const result: string[] = [];
+
+    for (const labelEdge of labelEdges) {
+      if (labelEdge) {
+        const nodeName = labelEdge.node?.name;
+        if (nodeName) {
+          result.push(nodeName);
+        }
+      }
+    }
     return result;
   }
 }

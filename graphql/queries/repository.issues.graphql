@@ -1,6 +1,6 @@
-query repository {
-  repository(owner:"alkem-io", name:"alkemio") {
-    issues(last:20, states:CLOSED) {
+query repository($repoName: String!, $limit: Int!) {
+  repository(owner:"alkem-io", name: $repoName) {
+    issues(last: $limit, states:CLOSED) {
       edges {
         node {
           title
