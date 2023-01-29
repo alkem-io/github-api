@@ -1,5 +1,5 @@
 query repository {
-  repository(owner:"octocat", name:"Hello-World") {
+  repository(owner:"alkem-io", name:"alkemio") {
     issues(last:20, states:CLOSED) {
       edges {
         node {

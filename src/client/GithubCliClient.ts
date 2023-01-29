@@ -35,4 +35,10 @@ export class GithubClient {
 
     return result;
   }
+
+  public async repository() {
+    const result = await this.sdkClient.repository();
+
+    return result;
+  }
 }

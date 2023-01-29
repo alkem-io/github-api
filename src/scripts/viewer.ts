@@ -13,7 +13,8 @@ export const viewer = async () => {
   const githubClient = new GithubClient(config, logger);
   await githubClient.initialise();
 
-  await githubClient.testQuery();
+  const result = await githubClient.repository();
+  logger.info?.(`Result: ${JSON.stringify(result)}`);
 };
 
 main().catch(error => {
