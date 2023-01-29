@@ -10,3 +10,6 @@ Generate a personal access token using [Github Instructions](https://docs.github
 
 Create a `.env` file from the provided `.env.default` file, and place your personal access token there.
 
+## Notes
+The generation process is actually failing to complete, an issue with the tidying up of the generated code. However when it hangs just kill the process and the code is working ok.
+
