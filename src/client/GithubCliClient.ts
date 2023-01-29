@@ -1,13 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { GraphQLClient } from 'graphql-request';
-import {
-  Sdk,
-  getSdk,
-  OrganizationAuthorizationResetInput,
-  HubAuthorizationResetInput,
-  UserAuthorizationResetInput,
-} from '../generated/graphql';
+import { Sdk, getSdk } from '../generated/graphql';
 import { Logger } from 'winston';
+import { GithubClientConfig } from '../config';
 
 export class GithubClient {
   public config!: GithubClientConfig;
@@ -17,28 +12,27 @@ export class GithubClient {
   constructor(config: GithubClientConfig, logger: Logger) {
     this.config = config;
     this.logger = logger;
-    this.logger.info(`Alkemio server: ${config.apiEndpointPrivateGraphql}`);
+    this.logger.info(`Github endpoint: ${this.config.apiEndpoint}`);
   }
 
   async initialise() {
     try {
-      const apiToken = this.alkemioLibClient.apiToken;
-
+      const apiToken = this.config.apiToken;
       this.logger.info(`API token: ${apiToken}`);
-      const client = new GraphQLClient(this.config.apiEndpointPrivateGraphql, {
+      const client = new GraphQLClient(this.config.apiEndpoint, {
         headers: {
           authorization: `Bearer ${apiToken}`,
         },
       });
       this.sdkClient = getSdk(client);
     } catch (error) {
-      throw new Error(`Unable to create client for Alkemio endpoint: ${error}`);
+      throw new Error(`Unable to create client for Github endpoint: ${error}`);
     }
   }
 
-  public async hubsAllVisibilities() {
-    const result = await this.sdkClient.hubsAllVisibilities();
+  public async testQuery() {
+    const result = await this.sdkClient.viewer();
 
-    return result.data.hubs;
+    return result;
   }
 }

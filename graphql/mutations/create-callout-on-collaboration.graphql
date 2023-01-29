@@ -1,7 +1,0 @@
-
-mutation createCalloutOnCollaboration($data: CreateCalloutOnCollaborationInput!){
-  createCalloutOnCollaboration(calloutData: $data){
-    id
-    type
-  }
-}

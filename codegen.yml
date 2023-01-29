@@ -1,5 +1,6 @@
 overwrite: true
-schema: "http://localhost:3000/graphql"
+schema:
+  - ./github.schema.graphql
 documents: graphql/**/*.graphql
 hooks:
   afterAllFileWrite:
@@ -19,13 +20,4 @@ generates:
       rawRequest: true
       preResolveTypes: true
       skipTypename: true
-      scalars:
-        Upload: import('graphql-upload').FileUpload
-        NameID: string
-        UUID: string
-        UUID_NAMEID: string
-        UUID_NAMEID_EMAIL: string
-        DID: string
-        DateTime: Date
-        JSON: string
 
