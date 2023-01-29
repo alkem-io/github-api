@@ -1,0 +1,19 @@
+query repository {
+  repository(owner:"alkem-io", name:"alkemio") {
+    issues(last:20, states:CLOSED) {
+      edges {
+        node {
+          title
+          url
+          labels(first:5) {
+            edges {
+              node {
+                name
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
