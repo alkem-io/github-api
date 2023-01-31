@@ -1,15 +1,13 @@
 query projects($organization: String!, $projectID: Int!) {
   organization(login: $organization) {
     projectV2(number: $projectID) {
-      id
       fields(first: 20) {
         nodes {
           ... on ProjectV2Field {
-            id
             name
+            dataType
           }
           ... on ProjectV2IterationField {
-            id
             name
             configuration {
               iterations {
@@ -19,11 +17,140 @@ query projects($organization: String!, $projectID: Int!) {
             }
           }
           ... on ProjectV2SingleSelectField {
-            id
             name
             options {
               id
               name
+            }
+          }
+        }
+      }
+      #
+      items(first: 20) {
+        nodes {
+#          content {
+#            ... on Issue {
+#              assignees(first: 5) {
+#                nodes {
+#                  name
+#                }
+#              }
+#            }
+#          }
+          fieldValues {
+            nodes {
+              ... on ProjectV2ItemFieldDateValue {
+                date
+                field {
+                  ... on ProjectV2Field {
+                    name
+                  }
+                }
+              }
+              ... on ProjectV2ItemFieldIterationValue {
+                title
+                startDate
+                field {
+                  ... on ProjectV2IterationField {
+                    name
+                  }
+                }
+              }
+              ... on ProjectV2ItemFieldLabelValue {
+                labels {
+                  nodes {
+                    name
+                  }
+                }
+                field {
+                  ... on ProjectV2Field {
+                    name
+                  }
+                }
+              }
+              ... on ProjectV2ItemFieldMilestoneValue {
+                field {
+                  ... on ProjectV2Field {
+                    name
+                  }
+                }
+                milestone {
+                  title
+                }
+              }
+              ... on ProjectV2ItemFieldNumberValue {
+                number
+                field {
+                  ... on ProjectV2Field {
+                    name
+                  }
+                }
+              }
+              ... on ProjectV2ItemFieldPullRequestValue {
+                pullRequests {
+                  nodes {
+                    title
+                  }
+                }
+                field {
+                  ... on ProjectV2Field {
+                    name
+                  }
+                }
+              }
+              ... on ProjectV2ItemFieldRepositoryValue {
+                repository {
+                  name
+                }
+                field {
+                  ... on ProjectV2Field {
+                    name
+                  }
+                }
+              }
+              ... on ProjectV2ItemFieldReviewerValue {
+                reviewers {
+                  nodes {
+                    ... on User {
+                      name
+                    }
+                  }
+                }
+                field {
+                  ... on ProjectV2Field {
+                    name
+                  }
+                }
+              }
+              ... on ProjectV2ItemFieldSingleSelectValue {
+                name
+                field {
+                  ... on ProjectV2SingleSelectField {
+                    name
+                  }
+                }
+              }
+              ... on ProjectV2ItemFieldTextValue {
+                text
+                field {
+                  ... on ProjectV2Field {
+                    name
+                  }
+                }
+              }
+              ... on ProjectV2ItemFieldUserValue {
+                users {
+                  nodes {
+                    name
+                  }
+                }
+                field {
+                  ... on ProjectV2Field {
+                    name
+                  }
+                }
+              }
+              #
             }
           }
         }
