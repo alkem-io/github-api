@@ -37,7 +37,7 @@ query projects($organization: String!, $projectID: Int!) {
 #              }
 #            }
 #          }
-          fieldValues {
+          fieldValues(first: 20) {
             nodes {
               ... on ProjectV2ItemFieldDateValue {
                 date
@@ -57,7 +57,7 @@ query projects($organization: String!, $projectID: Int!) {
                 }
               }
               ... on ProjectV2ItemFieldLabelValue {
-                labels {
+                labels(first: 10) {
                   nodes {
                     name
                   }
@@ -139,7 +139,7 @@ query projects($organization: String!, $projectID: Int!) {
                 }
               }
               ... on ProjectV2ItemFieldUserValue {
-                users {
+                users(first: 10) {
                   nodes {
                     name
                   }

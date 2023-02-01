@@ -59378,7 +59378,7 @@ export const ProjectsDocument = gql`
         }
         items(first: 20) {
           nodes {
-            fieldValues {
+            fieldValues(first: 20) {
               nodes {
                 ... on ProjectV2ItemFieldDateValue {
                   date
@@ -59398,7 +59398,7 @@ export const ProjectsDocument = gql`
                   }
                 }
                 ... on ProjectV2ItemFieldLabelValue {
-                  labels {
+                  labels(first: 10) {
                     nodes {
                       name
                     }
@@ -59480,7 +59480,7 @@ export const ProjectsDocument = gql`
                   }
                 }
                 ... on ProjectV2ItemFieldUserValue {
-                  users {
+                  users(first: 10) {
                     nodes {
                       name
                     }
