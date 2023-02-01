@@ -62,7 +62,7 @@ export class GithubClient {
   public async projects(organization: string, projectID: number) {
     const result = await this.sdkClient.projects({ organization, projectID });
 
-    this.logger.info?.(`Projects: [${result}] `);
+    // this.logger.info?.(`Projects: [${result}] `);
 
     return result;
   }

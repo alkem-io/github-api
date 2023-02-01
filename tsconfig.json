@@ -3,7 +3,7 @@
       "target": "es2018",
       "module": "commonjs",
       "declaration": true,
-      "lib": ["es2018", "esnext.asynciterable"],
+      "lib": ["es2018", "esnext.asynciterable", "esnext"],
       "sourceMap": true,
       "outDir": "./dist",
       "rootDir": "./src",
