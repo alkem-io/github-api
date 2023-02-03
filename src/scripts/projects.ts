@@ -4,7 +4,7 @@ import { GithubClient } from '../client/GithubCliClient';
 import { createLogger } from '../util/create-logger';
 import { extractFieldAndValue } from '../util/extract-field-and-value';
 
-const workbookName = 'capacity-planning-template.xlsx';
+const workbookTemplate = 'capacity-planning-template.xlsx';
 const worksheetName = 'GITHUB_EPICS';
 
 const main = async () => {
@@ -51,8 +51,13 @@ export const projects = async () => {
   }
 
   // todo: remove columns from fieldNames if the whole column is empty
+  const date = new Date();
+  const dateStr = `${date.getFullYear()}-${
+    date.getMonth() + 1
+  }-${date.getDate()}`;
+  const workbookName = workbookTemplate.replace('template', dateStr);
 
-  const workbook = XLSX.readFile(workbookName);
+  const workbook = XLSX.readFile(workbookTemplate);
   workbook.Sheets[worksheetName] = XLSX.utils.json_to_sheet(items, {
     header: fieldNames,
   });
@@ -64,5 +69,3 @@ export const projects = async () => {
 main().catch(error => {
   console.error(error);
 });
-
-
