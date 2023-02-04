@@ -1,7 +1,7 @@
 query projects($organization: String!, $projectID: Int!) {
   organization(login: $organization) {
     projectV2(number: $projectID) {
-      fields(first: 20) {
+      fields(first: 100) {
         nodes {
           ... on ProjectV2Field {
             name
@@ -26,7 +26,7 @@ query projects($organization: String!, $projectID: Int!) {
         }
       }
       #
-      items(first: 20) {
+      items(first: 100) {
         nodes {
 #          content {
 #            ... on Issue {
