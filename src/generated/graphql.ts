@@ -59352,7 +59352,7 @@ export const ProjectsDocument = gql`
   query projects($organization: String!, $projectID: Int!) {
     organization(login: $organization) {
       projectV2(number: $projectID) {
-        fields(first: 20) {
+        fields(first: 100) {
           nodes {
             ... on ProjectV2Field {
               name
@@ -59376,7 +59376,7 @@ export const ProjectsDocument = gql`
             }
           }
         }
-        items(first: 20) {
+        items(first: 100) {
           nodes {
             fieldValues(first: 20) {
               nodes {

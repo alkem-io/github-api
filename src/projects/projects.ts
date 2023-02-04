@@ -48,7 +48,7 @@ export const projects = async () => {
           epic.Labels = field?.value;
           break;
         case EpicField.SPRINT_POINTS:
-          epic.SprintPoints = field?.value;
+          epic.SprintPoints = parseInt(field?.value);
           break;
         case EpicField.TITLE:
           epic.Title = field?.value;
@@ -63,7 +63,7 @@ export const projects = async () => {
           epic.Partner = field?.value;
           break;
         case EpicField.EPIC_POINTS:
-          epic.EpicPoints = field?.value;
+          epic.EpicPoints = parseInt(field?.value);
           break;
         case EpicField.REPOSITORY:
           epic.Repository = field?.value;
