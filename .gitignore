@@ -9,6 +9,5 @@ dist
 secrets/*.json
 .~*
 ~*
-.vscode
 .idea
 capacity-planning-2023*
