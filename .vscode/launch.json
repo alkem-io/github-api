@@ -5,11 +5,11 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Canvas-Checkedout-no-user",
+      "name": "Epics",
       "request": "launch",
       "runtimeArgs": [
         "run",
-        "canvas-checkedout-no-user"
+        "projects"
       ],
       "runtimeExecutable": "npm",
       "skipFiles": [
