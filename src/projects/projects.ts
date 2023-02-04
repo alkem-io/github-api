@@ -92,8 +92,8 @@ export const projects = async () => {
   const workbookName = workbookTemplate.replace('template', dateStr);
 
   const workbook = XLSX.readFile(workbookTemplate);
-  //const epicsSheet = workbook.Sheets[worksheetName];
-  workbook.Sheets[worksheetName] = XLSX.utils.json_to_sheet(epics);
+  const epicsSheet = workbook.Sheets[worksheetName];
+  XLSX.utils.sheet_add_json(epicsSheet, epics);
   XLSX.writeFile(workbook, workbookName);
 
   return queryData;
