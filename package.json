@@ -22,7 +22,7 @@
     "prepublishOnly": "npm run build",
     "codegen": "graphql-codegen --config codegen.yml",
     "repository-issues": "ts-node-dev src/scripts/repository-issues.ts",
-    "projects": "ts-node-dev src/scripts/projects.ts"
+    "projects": "ts-node-dev src/projects/projects.ts"
   },
   "repository": {
     "type": "git",
@@ -55,7 +55,7 @@
     "rimraf": "^3.0.2",
     "typescript": "^4.7.4",
     "winston": "^3.8.1",
-    "xlsx": "^0.16.9"
+    "xlsx": "^0.18.5"
   },
   "files": [
     "dist/**/*"

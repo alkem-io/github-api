@@ -21,53 +21,62 @@ import {
 export const extractFieldAndValue = (fieldObject: unknown) => {
   if (isProjectV2ItemFieldDateValue(fieldObject)) {
     return {
-      [fieldObject.field.name]: fieldObject.date,
+      name: fieldObject.field.name,
+      value: fieldObject.date,
     };
   } else if (isProjectV2ItemFieldIterationValue(fieldObject)) {
     return {
-      [fieldObject.field.name]: fieldObject.startDate,
+      name: fieldObject.field.name,
+      value: fieldObject.startDate,
     };
   } else if (isProjectV2ItemFieldLabelValue(fieldObject)) {
     return {
-      [fieldObject.field.name]: fieldObject.labels?.nodes
-        ?.map(x => x?.name ?? 'label')
-        ?.join(','),
+      name: fieldObject.field.name,
+      value: fieldObject.labels?.nodes?.map(x => x?.name ?? 'label')?.join(','),
     };
   } else if (isProjectV2ItemFieldRepositoryValue(fieldObject)) {
     return {
-      [fieldObject.field.name]: fieldObject?.repository?.name ?? 'repoName',
+      name: fieldObject.field.name,
+      value: fieldObject?.repository?.name ?? 'repoName',
     };
   } else if (isProjectV2ItemFieldMilestoneValue(fieldObject)) {
     return {
-      [fieldObject.field.name]: fieldObject?.milestone?.title ?? 'milestone',
+      name: fieldObject.field.name,
+      value: fieldObject?.milestone?.title ?? 'milestone',
     };
   } else if (isProjectV2ItemFieldNumberValue(fieldObject)) {
     return {
-      [fieldObject.field.name]: fieldObject.number,
+      name: fieldObject.field.name,
+      value: fieldObject.number,
     };
   } else if (isProjectV2ItemFieldPullRequestValue(fieldObject)) {
     return {
-      [fieldObject.field.name]: fieldObject.pullRequests?.nodes
+      name: fieldObject.field.name,
+      value: fieldObject.pullRequests?.nodes
         ?.map(pr => pr?.title ?? 'PR')
         .join(','),
     };
   } else if (isProjectV2ItemFieldReviewerValue(fieldObject)) {
     return {
-      [fieldObject.field.name]: fieldObject.reviewers?.nodes
+      name: fieldObject.field.name,
+      value: fieldObject.reviewers?.nodes
         ?.map(r => (r as User)?.name ?? 'reviewer')
         .join(','),
     };
   } else if (isProjectV2ItemFieldSingleSelectValue(fieldObject)) {
     return {
-      [fieldObject.field.name]: fieldObject.name,
+      name: fieldObject.field.name,
+      value: fieldObject.name,
     };
   } else if (isProjectV2ItemFieldTextValue(fieldObject)) {
     return {
-      [fieldObject.field.name]: fieldObject.text,
+      name: fieldObject.field.name,
+      value: fieldObject.text,
     };
   } else if (isProjectV2ItemFieldUserValue(fieldObject)) {
     return {
-      [fieldObject.field.name]: fieldObject.users?.nodes
+      name: fieldObject.field.name,
+      value: fieldObject.users?.nodes
         ?.map(user => user?.name ?? 'user')
         .join(','),
     };
