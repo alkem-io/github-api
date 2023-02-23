@@ -30,12 +30,6 @@ export class GithubClient {
     }
   }
 
-  public async testQuery() {
-    const result = await this.sdkClient.viewer();
-
-    return result;
-  }
-
   public async issuesInRepo(
     repoName: string,
     limit: number
