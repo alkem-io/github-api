@@ -1,4 +1,4 @@
-query projects($organization: String!, $projectID: Int!) {
+query projects($organization: String!, $projectID: Int!, $afterCursor: String) {
   organization(login: $organization) {
     projectV2(number: $projectID) {
       fields(first: 100) {
@@ -26,7 +26,7 @@ query projects($organization: String!, $projectID: Int!) {
         }
       }
       #
-      items(first: 100) {
+      items(first: 100, after: $afterCursor) {
         nodes {
 #          content {
 #            ... on Issue {
@@ -57,7 +57,7 @@ query projects($organization: String!, $projectID: Int!) {
                 }
               }
               ... on ProjectV2ItemFieldLabelValue {
-                labels(first: 10) {
+                labels(first: 20) {
                   nodes {
                     name
                   }
@@ -139,7 +139,7 @@ query projects($organization: String!, $projectID: Int!) {
                 }
               }
               ... on ProjectV2ItemFieldUserValue {
-                users(first: 10) {
+                users(first: 20) {
                   nodes {
                     name
                   }
@@ -153,6 +153,10 @@ query projects($organization: String!, $projectID: Int!) {
               #
             }
           }
+        }
+        pageInfo {
+          endCursor
+          hasNextPage
         }
       }
     }

@@ -18,7 +18,7 @@ export class GithubClient {
   async initialise() {
     try {
       const apiToken = this.config.apiToken;
-      this.logger.info(`API token: ${apiToken}`);
+      //this.logger.info(`API token: ${apiToken}`);
       const client = new GraphQLClient(this.config.apiEndpoint, {
         headers: {
           authorization: `Bearer ${apiToken}`,
@@ -28,12 +28,6 @@ export class GithubClient {
     } catch (error) {
       throw new Error(`Unable to create client for Github endpoint: ${error}`);
     }
-  }
-
-  public async testQuery() {
-    const result = await this.sdkClient.viewer();
-
-    return result;
   }
 
   public async issuesInRepo(
@@ -59,8 +53,16 @@ export class GithubClient {
     return titles;
   }
 
-  public async projects(organization: string, projectID: number) {
-    const result = await this.sdkClient.projects({ organization, projectID });
+  public async projects(
+    organization: string,
+    projectID: number,
+    afterCursor?: string
+  ) {
+    const result = await this.sdkClient.projects({
+      organization,
+      projectID,
+      afterCursor,
+    });
 
     // this.logger.info?.(`Projects: [${result}] `);
 
