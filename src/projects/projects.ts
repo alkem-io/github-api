@@ -4,7 +4,6 @@ import { GithubClient } from '../client/GithubCliClient';
 import {
   createLogger,
   getColumnConfig,
-  getHeaders,
   extractFieldAndValue,
   fillOptionalFields,
 } from '../util';
@@ -47,6 +46,8 @@ export const projects = async () => {
       itemData.push(...items.nodes);
     }
   } while (hasNextPage);
+
+  logger.info(`...retrieved ${itemData.length} epics`);
 
   if (!fieldData) {
     throw new Error('Fields not found');

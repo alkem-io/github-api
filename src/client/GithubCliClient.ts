@@ -18,7 +18,7 @@ export class GithubClient {
   async initialise() {
     try {
       const apiToken = this.config.apiToken;
-      this.logger.info(`API token: ${apiToken}`);
+      //this.logger.info(`API token: ${apiToken}`);
       const client = new GraphQLClient(this.config.apiEndpoint, {
         headers: {
           authorization: `Bearer ${apiToken}`,
