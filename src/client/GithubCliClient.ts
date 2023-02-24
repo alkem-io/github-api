@@ -53,8 +53,16 @@ export class GithubClient {
     return titles;
   }
 
-  public async projects(organization: string, projectID: number) {
-    const result = await this.sdkClient.projects({ organization, projectID });
+  public async projects(
+    organization: string,
+    projectID: number,
+    afterCursor?: string
+  ) {
+    const result = await this.sdkClient.projects({
+      organization,
+      projectID,
+      afterCursor,
+    });
 
     // this.logger.info?.(`Projects: [${result}] `);
 

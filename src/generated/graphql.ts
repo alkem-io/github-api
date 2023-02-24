@@ -59217,6 +59217,7 @@ export type DirectiveResolvers<ContextType = any> = {
 export type ProjectsQueryVariables = Exact<{
   organization: Scalars['String'];
   projectID: Scalars['Int'];
+  afterCursor?: InputMaybe<Scalars['String']>;
 }>;
 
 export type ProjectsQuery = {
@@ -59312,6 +59313,7 @@ export type ProjectsQuery = {
             }>
           >
         >;
+        pageInfo: Pick<PageInfo, 'endCursor' | 'hasNextPage'>;
       };
     }>;
   }>;
@@ -59349,7 +59351,11 @@ export type ViewerQueryVariables = Exact<{ [key: string]: never }>;
 export type ViewerQuery = { viewer: Pick<User, 'login'> };
 
 export const ProjectsDocument = gql`
-  query projects($organization: String!, $projectID: Int!) {
+  query projects(
+    $organization: String!
+    $projectID: Int!
+    $afterCursor: String
+  ) {
     organization(login: $organization) {
       projectV2(number: $projectID) {
         fields(first: 100) {
@@ -59376,7 +59382,7 @@ export const ProjectsDocument = gql`
             }
           }
         }
-        items(first: 100) {
+        items(first: 100, after: $afterCursor) {
           nodes {
             fieldValues(first: 20) {
               nodes {
@@ -59398,7 +59404,7 @@ export const ProjectsDocument = gql`
                   }
                 }
                 ... on ProjectV2ItemFieldLabelValue {
-                  labels(first: 10) {
+                  labels(first: 20) {
                     nodes {
                       name
                     }
@@ -59480,7 +59486,7 @@ export const ProjectsDocument = gql`
                   }
                 }
                 ... on ProjectV2ItemFieldUserValue {
-                  users(first: 10) {
+                  users(first: 20) {
                     nodes {
                       name
                     }
@@ -59493,6 +59499,10 @@ export const ProjectsDocument = gql`
                 }
               }
             }
+          }
+          pageInfo {
+            endCursor
+            hasNextPage
           }
         }
       }

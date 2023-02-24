@@ -11,4 +11,5 @@ export enum EpicField {
   PARTNER = 'Partner',
   TYPE = 'Type',
   RELEASE = 'Release',
+  Milestone = 'Milestone',
 }
