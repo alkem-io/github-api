@@ -53,12 +53,12 @@ export class GithubClient {
     return titles;
   }
 
-  public async projects(
+  public async projectItems(
     organization: string,
     projectID: number,
     afterCursor?: string
   ) {
-    const result = await this.sdkClient.projects({
+    const result = await this.sdkClient.projectItems({
       organization,
       projectID,
       afterCursor,

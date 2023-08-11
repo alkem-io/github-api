@@ -59214,13 +59214,13 @@ export type DirectiveResolvers<ContextType = any> = {
   >;
 };
 
-export type ProjectsQueryVariables = Exact<{
+export type ProjectItemsQueryVariables = Exact<{
   organization: Scalars['String'];
   projectID: Scalars['Int'];
   afterCursor?: InputMaybe<Scalars['String']>;
 }>;
 
-export type ProjectsQuery = {
+export type ProjectItemsQuery = {
   organization?: Maybe<{
     projectV2?: Maybe<{
       fields: {
@@ -59350,8 +59350,8 @@ export type ViewerQueryVariables = Exact<{ [key: string]: never }>;
 
 export type ViewerQuery = { viewer: Pick<User, 'login'> };
 
-export const ProjectsDocument = gql`
-  query projects(
+export const ProjectItemsDocument = gql`
+  query projectItems(
     $organization: String!
     $projectID: Int!
     $afterCursor: String
@@ -59549,7 +59549,7 @@ const defaultWrapper: SdkFunctionWrapper = (
   _operationName,
   _operationType
 ) => action();
-const ProjectsDocumentString = print(ProjectsDocument);
+const ProjectItemsDocumentString = print(ProjectItemsDocument);
 const RepositoryDocumentString = print(RepositoryDocument);
 const ViewerDocumentString = print(ViewerDocument);
 export function getSdk(
@@ -59557,22 +59557,23 @@ export function getSdk(
   withWrapper: SdkFunctionWrapper = defaultWrapper
 ) {
   return {
-    projects(
-      variables: ProjectsQueryVariables,
+    projectItems(
+      variables: ProjectItemsQueryVariables,
       requestHeaders?: Dom.RequestInit['headers']
     ): Promise<{
-      data: ProjectsQuery;
+      data: ProjectItemsQuery;
       extensions?: any;
       headers: Dom.Headers;
       status: number;
     }> {
       return withWrapper(
         wrappedRequestHeaders =>
-          client.rawRequest<ProjectsQuery>(ProjectsDocumentString, variables, {
-            ...requestHeaders,
-            ...wrappedRequestHeaders,
-          }),
-        'projects',
+          client.rawRequest<ProjectItemsQuery>(
+            ProjectItemsDocumentString,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders }
+          ),
+        'projectItems',
         'query'
       );
     },
