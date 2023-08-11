@@ -7,10 +7,12 @@ import {
   extractFieldAndValue,
   fillOptionalFields,
 } from '../util';
-import { EpicType } from './model/epic';
 import { EpicField } from './epic.field';
-const workbookTemplate = 'capacity-planning-template.xlsx';
+import { EpicType } from './model/epic';
+const workbookTemplate = 'qa-analysis-template.xlsx';
 const worksheetName = 'GITHUB_EPICS';
+const projectID = 15; // visible in the github projects URL: https://github.com/orgs/alkem-io/projects/15/views/1
+const alkemioOrganizationName = 'alkem-io';
 
 const main = async () => {
   await projects();
@@ -31,7 +33,11 @@ export const projects = async () => {
   let hasNextPage: boolean;
 
   do {
-    const { data } = await githubClient.projects('alkem-io', 4, endCursor);
+    const { data } = await githubClient.projectItems(
+      alkemioOrganizationName,
+      projectID,
+      endCursor
+    );
     endCursor = data?.organization?.projectV2?.items?.pageInfo?.endCursor;
     hasNextPage = Boolean(
       data?.organization?.projectV2?.items?.pageInfo?.hasNextPage

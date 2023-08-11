@@ -22,7 +22,8 @@
     "prepublishOnly": "npm run build",
     "codegen": "graphql-codegen --config codegen.yml",
     "repository-issues": "ts-node-dev src/scripts/repository-issues.ts",
-    "projects": "ts-node-dev src/projects/projects.ts"
+    "capacity-planning": "ts-node-dev src/capacity-planning/capacity-planning.ts",
+    "qa-analysis": "ts-node-dev src/qa-analysis/qa-analysis.ts"
   },
   "repository": {
     "type": "git",

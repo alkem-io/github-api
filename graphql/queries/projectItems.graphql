@@ -1,4 +1,4 @@
-query projects($organization: String!, $projectID: Int!, $afterCursor: String) {
+query projectItems($organization: String!, $projectID: Int!, $afterCursor: String) {
   organization(login: $organization) {
     projectV2(number: $projectID) {
       fields(first: 100) {
