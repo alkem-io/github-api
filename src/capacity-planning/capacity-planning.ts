@@ -105,6 +105,9 @@ export const projectItems = async () => {
         case EpicField.EPIC_POINTS:
           epic.EpicPoints = parseInt(field.value);
           break;
+        case EpicField.EPIC_POINTS_REMAINING:
+          epic.EpicPointsRemaining = parseInt(field.value);
+          break;
         case EpicField.REPOSITORY:
           epic.Repository = field.value;
           break;

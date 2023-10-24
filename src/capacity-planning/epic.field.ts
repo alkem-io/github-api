@@ -8,6 +8,7 @@ export enum EpicField {
   REPOSITORY = 'Repository',
   ASSIGNEES = 'Assignees',
   EPIC_POINTS = 'Epic points',
+  EPIC_POINTS_REMAINING = 'Epic points - remaining',
   PARTNER = 'Partner',
   TYPE = 'Type',
   RELEASE = 'Release',
