@@ -32,4 +32,13 @@ export type EpicType = {
   EpicPointsDone?: number;
   EpicPointsRemaining?: number;
   Milestone?: string;
-}
+  Quartile?: string;
+  TypeAlkemio?: string;
+  NonFunctionalArea?: string;
+  FunctionalArea?: string;
+  Feature?: string;
+  Order?: number;
+  NewImprovement?: string;
+  Classification?: string;
+  Feature2?: string;
+};
