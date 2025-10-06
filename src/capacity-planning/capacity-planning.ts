@@ -190,11 +190,66 @@ export const projectItems = async () => {
   const newEpics = fillOptionalFields(epics);
   const colInfo = getColumnConfig(newEpics);
 
-  // Ensure header order: provide header array and skipHeader to replace existing sheet headers
-  XLSX.utils.sheet_add_json(epicsSheet, newEpics, {
-    header: CAPACITY_PLANNING_COLUMN_ORDER,
-    origin: 'A1',
+  // Write data manually starting at row 2 to preserve template header formatting and formulas.
+  // We avoid overwriting cells that contain formulas (cell.f) to keep computed fields intact.
+  const startRow = 2; // 1-based Excel row index, row 1 assumed to contain headers in template
+
+  const colLetters = ((): string[] => {
+    const toCol = (index: number) => {
+      let s = '';
+      let n = index;
+      while (n >= 0) {
+        s = String.fromCharCode((n % 26) + 65) + s;
+        n = Math.floor(n / 26) - 1;
+      }
+      return s;
+    };
+    return CAPACITY_PLANNING_COLUMN_ORDER.map((_, i) => toCol(i));
+  })();
+
+  const setCellValue = (addr: string, value: unknown) => {
+    if (value === undefined || value === null || value === '') return;
+    const existing = epicsSheet[addr];
+    if (existing && (existing as any).f) {
+      // Has a formula; skip to preserve
+      return;
+    }
+    // Reuse existing cell object if present to keep any style metadata (SheetJS community version does not preserve styles, but we try)
+    const cell = existing || {};
+    if (typeof value === 'number') {
+      cell.v = value;
+      cell.t = 'n';
+    } else if (value instanceof Date) {
+      cell.v = value;
+      cell.t = 'd';
+    } else if (Array.isArray(value)) {
+      cell.v = value.join(', ');
+      cell.t = 's';
+    } else {
+      cell.v = value as string;
+      cell.t = 's';
+    }
+    epicsSheet[addr] = cell;
+  };
+
+  newEpics.forEach((epic, rowIndex) => {
+    const excelRow = startRow + rowIndex;
+    CAPACITY_PLANNING_COLUMN_ORDER.forEach((header, colIndex) => {
+      const col = colLetters[colIndex];
+      const addr = `${col}${excelRow}`;
+      // The epic object keys match header text (Title, Status, etc.)
+      const value = (epic as Record<string, unknown>)[header];
+      setCellValue(addr, value);
+    });
   });
+
+  // Update sheet range so Excel displays newly added cells.
+  if (newEpics.length > 0) {
+    const lastCol = colLetters[colLetters.length - 1];
+    const lastRow = startRow + newEpics.length - 1;
+    const newRef = `A1:${lastCol}${lastRow}`;
+    epicsSheet['!ref'] = newRef; // overwrite; template range was smaller.
+  }
   epicsSheet['!cols'] = colInfo;
   // Attempt to write the file; if locked (EBUSY) append timestamp to create a new one
   try {
