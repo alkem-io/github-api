@@ -1,5 +1,6 @@
-export * from './populators/populator';
-export { AbstractDataAdapter, BaseDataAdapter, XLSXAdapter } from './adapters';
-export * from './models';
-export * from './populators/abstract-populator';
-export * from './utils/create-logger';
+// Public API exports
+export * from './client/GithubCliClient';
+export * from './config';
+export * from './util';
+export * from './generated/graphql';
+export { createLogger } from './util/create-logger';

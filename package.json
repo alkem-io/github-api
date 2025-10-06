@@ -55,6 +55,8 @@
     "@alkemio/client-lib": "0.35.0",
     "dotenv": "^17.2.3",
     "graphql": "^16.11.0",
+    "graphql-request": "^7.1.2",
+    "graphql-tag": "^2.12.6",
     "nodemon": "^3.1.0",
     "winston": "^3.18.3",
     "xlsx": "^0.18.5"

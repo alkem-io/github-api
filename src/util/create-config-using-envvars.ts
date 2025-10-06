@@ -11,5 +11,6 @@ export const createConfigUsingEnvVars = (): GithubClientConfig => {
   return {
     apiToken: apiToken,
     apiEndpoint: GITHUB_ENDPOINT,
+    apiEndpointPrivateGraphql: 'not set',
   };
 };
