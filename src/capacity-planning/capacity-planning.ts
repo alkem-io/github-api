@@ -207,6 +207,16 @@ export const projectItems = async () => {
     return CAPACITY_PLANNING_COLUMN_ORDER.map((_, i) => toCol(i));
   })();
 
+  // Overwrite header row explicitly with canonical field names each run.
+  CAPACITY_PLANNING_COLUMN_ORDER.forEach((header, colIndex) => {
+    const col = colLetters[colIndex];
+    const addr = `${col}1`;
+    const existing = epicsSheet[addr] || { t: 's' };
+    existing.v = header; // force value
+    existing.t = 's';
+    epicsSheet[addr] = existing;
+  });
+
   const setCellValue = (addr: string, value: unknown) => {
     if (value === undefined || value === null || value === '') return;
     const existing = epicsSheet[addr];
