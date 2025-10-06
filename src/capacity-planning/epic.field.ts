@@ -24,3 +24,32 @@ export enum EpicField {
   NEW_IMPROVEMENT = 'New / Improvement',
   CLASSIFICATION = 'Classification',
 }
+
+// Defines the fixed column order for capacity planning export.
+// Adjust this array to reorder columns in the Excel output.
+export const CAPACITY_PLANNING_COLUMN_ORDER: string[] = [
+  EpicField.TITLE,
+  EpicField.STATUS,
+  EpicField.QUARTILE,
+  EpicField.CLASSIFICATION,
+  EpicField.TYPE_ALKEMIO,
+  EpicField.EPIC_POINTS,
+  EpicField.LABELS,
+  EpicField.PARTNER,
+  EpicField.TYPE,
+  EpicField.NEW_IMPROVEMENT,
+  EpicField.FEATURE,
+  EpicField.FEATURE_2,
+  EpicField.FUNCTIONAL_AREA,
+  EpicField.NON_FUNCTIONAL_AREA,
+  EpicField.PERIOD,
+  EpicField.SPRINT,
+  EpicField.SPRINT_POINTS,
+  EpicField.RELEASE,
+  EpicField.MILESTONE,
+  EpicField.REPOSITORY,
+  EpicField.ASSIGNEES,
+  EpicField.ORDER, // keep ordering / priority first if desired
+  EpicField.EPIC_POINTS_REMAINING,
+  EpicField.EPIC_POINTS_DONE,
+];
