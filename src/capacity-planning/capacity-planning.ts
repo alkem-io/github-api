@@ -72,9 +72,10 @@ export const projectItems = async () => {
       const field = extractFieldAndValue(fieldNode);
 
       if (!field) {
-        throw new Error(
+        logger.error(
           `Unable to get field and value for: ${JSON.stringify(fieldNode)}`
         );
+        continue;
       }
 
       switch (field.name) {
@@ -105,6 +106,12 @@ export const projectItems = async () => {
         case EpicField.EPIC_POINTS:
           epic.EpicPoints = parseInt(field.value);
           break;
+        case EpicField.EPIC_POINTS_REMAINING:
+          epic.EpicPointsRemaining = parseInt(field.value);
+          break;
+        case EpicField.EPIC_POINTS_DONE:
+          epic.EpicPointsDone = parseInt(field.value);
+          break;
         case EpicField.REPOSITORY:
           epic.Repository = field.value;
           break;
@@ -114,8 +121,38 @@ export const projectItems = async () => {
         case EpicField.TYPE:
           epic.Type = field.value;
           break;
-        case EpicField.Milestone:
+        case EpicField.MILESTONE:
           epic.Milestone = field.value;
+          break;
+        case EpicField.QUARTILE:
+          epic.Quartile = field.value;
+          break;
+        case EpicField.TYPE_ALKEMIO:
+          epic.TypeAlkemio = field.value;
+          break;
+        case EpicField.NON_FUNCTIONAL_AREA:
+          epic.NonFunctionalArea = field.value;
+          break;
+        case EpicField.FUNCTIONAL_AREA:
+          epic.FunctionalArea = field.value;
+          break;
+        case EpicField.FEATURE:
+          epic.Feature = field.value;
+          break;
+        case EpicField.ORDER:
+          epic.Order = parseInt(field.value);
+          break;
+        case EpicField.NEW_IMPROVEMENT:
+          epic.NewImprovement = field.value;
+          break;
+        case EpicField.NEW_IMPROVEMENT:
+          epic.NewImprovement = field.value;
+          break;
+        case EpicField.CLASSIFICATION:
+          epic.Classification = field.value;
+          break;
+        case EpicField.FEATURE_2:
+          epic.Feature2 = field.value;
           break;
         default:
           console.error(`not found: ${field.name} - ${field.value}`);
