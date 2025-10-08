@@ -218,7 +218,6 @@ export const projectItems = async () => {
   });
 
   const setCellValue = (addr: string, value: unknown) => {
-    if (value === undefined || value === null || value === '') return;
     const existing = epicsSheet[addr];
     if (existing && (existing as any).f) {
       // Has a formula; skip to preserve
@@ -226,7 +225,12 @@ export const projectItems = async () => {
     }
     // Reuse existing cell object if present to keep any style metadata (SheetJS community version does not preserve styles, but we try)
     const cell = existing || {};
-    if (typeof value === 'number') {
+
+    // Handle undefined, null, or empty values by setting them as empty strings
+    if (value === undefined || value === null || value === '') {
+      cell.v = '';
+      cell.t = 's';
+    } else if (typeof value === 'number') {
       cell.v = value;
       cell.t = 'n';
     } else if (value instanceof Date) {
@@ -242,13 +246,71 @@ export const projectItems = async () => {
     epicsSheet[addr] = cell;
   };
 
+  // Create a mapping from EpicField enum values to actual epic object property names
+  const getEpicPropertyName = (fieldName: string): string => {
+    switch (fieldName) {
+      case EpicField.TITLE:
+        return 'Title';
+      case EpicField.STATUS:
+        return 'Status';
+      case EpicField.LABELS:
+        return 'Labels';
+      case EpicField.PERIOD:
+        return 'Period';
+      case EpicField.SPRINT:
+        return 'Sprint';
+      case EpicField.SPRINT_POINTS:
+        return 'SprintPoints';
+      case EpicField.REPOSITORY:
+        return 'Repository';
+      case EpicField.ASSIGNEES:
+        return 'Assignees';
+      case EpicField.EPIC_POINTS:
+        return 'EpicPoints';
+      case EpicField.EPIC_POINTS_REMAINING:
+        return 'EpicPointsRemaining';
+      case EpicField.EPIC_POINTS_DONE:
+        return 'EpicPointsDone';
+      case EpicField.PARTNER:
+        return 'Partner';
+      case EpicField.TYPE:
+        return 'Type';
+      case EpicField.RELEASE:
+        return 'Release';
+      case EpicField.MILESTONE:
+        return 'Milestone';
+      case EpicField.QUARTILE:
+        return 'Quartile';
+      case EpicField.TYPE_ALKEMIO:
+        return 'TypeAlkemio';
+      case EpicField.NON_FUNCTIONAL_AREA:
+        return 'NonFunctionalArea';
+      case EpicField.FUNCTIONAL_AREA:
+        return 'FunctionalArea';
+      case EpicField.FEATURE:
+        return 'Feature';
+      case EpicField.FEATURE_2:
+        return 'Feature2';
+      case EpicField.ORDER:
+        return 'Order';
+      case EpicField.NEW_IMPROVEMENT:
+        return 'NewImprovement';
+      case EpicField.CLASSIFICATION:
+        return 'Classification';
+      default:
+        console.warn(`Unknown field: ${fieldName}`);
+        return fieldName;
+    }
+  };
+
   newEpics.forEach((epic, rowIndex) => {
     const excelRow = startRow + rowIndex;
     CAPACITY_PLANNING_COLUMN_ORDER.forEach((header, colIndex) => {
       const col = colLetters[colIndex];
       const addr = `${col}${excelRow}`;
-      // The epic object keys match header text (Title, Status, etc.)
-      const value = (epic as Record<string, unknown>)[header];
+      // Map the header to the correct epic property name
+      const propertyName = getEpicPropertyName(header);
+      const value = (epic as Record<string, unknown>)[propertyName];
       setCellValue(addr, value);
     });
   });
