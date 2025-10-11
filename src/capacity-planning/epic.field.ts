@@ -29,11 +29,11 @@ export enum EpicField {
 // Adjust this array to reorder columns in the Excel output.
 export const CAPACITY_PLANNING_COLUMN_ORDER: string[] = [
   EpicField.TITLE,
-  EpicField.STATUS,
   EpicField.QUARTILE,
   EpicField.CLASSIFICATION,
-  EpicField.TYPE_ALKEMIO,
   EpicField.EPIC_POINTS,
+  EpicField.STATUS,
+  EpicField.TYPE_ALKEMIO,
   EpicField.LABELS,
   EpicField.PARTNER,
   EpicField.TYPE,
