@@ -1,7 +1,7 @@
 {
   "name": "@alkemio/github-api",
   "version": "0.1.0",
-  "author": "Alkemio Foundation",
+  "author": "Alkemio",
   "private": false,
   "license": "EUPL-1.2",
   "main": "dist/index.js",
